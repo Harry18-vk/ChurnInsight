@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ChurnInsight - Customer Churn Intelligence</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            AI
+        </div>
+
+        <div>
+
+            <h2>ChurnInsight</h2>
+
+            <span>
+                Intelligence Platform
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <button
+            class="nav-item active"
+            onclick="showSection('dashboard', this)"
+        >
+            Dashboard
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('add-customer-section', this)"
+        >
+            Add Customer
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('upload', this)"
+        >
+            Upload Dataset
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('customers', this)"
+        >
+            Customers
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('model', this)"
+        >
+            ML Models
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('explain', this)"
+        >
+            Explainability
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showSection('about', this)"
+        >
+            About Project
+        </button>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span class="status-dot"></span>
+            <span>Admin Active</span>
+        </div>
+
+        <a href="{{ url_for('logout') }}" style="color: #ef4444; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 600; padding: 4px 0;">
+            Log Out
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Customer Churn Intelligence
+            </h1>
+
+            <p>
+                AI-powered customer retention and churn prediction
+            </p>
+
+        </div>
+
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            System Online
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <section
+        id="dashboard"
+        class="page-section active-section"
+    >
+
+
+        <div class="hero">
+
+            <div>
+
+                <span class="eyebrow">
+                    AI-POWERED RETENTION
+                </span>
+
+
+                <h2>
+
+                    Predict.
+                    <span>Explain.</span>
+                    Retain.
+
+                </h2>
+
+
+                <p>
+
+                    Identify customers who are likely to churn,
+                    understand their risk, and take proactive
+                    retention actions.
+
+                </p>
+
+
+                <button
+                    class="primary-button"
+                    onclick="showSectionById('upload')"
+                >
+
+                    Upload Customer Data →
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- METRICS -->
+
+        <div class="metrics-grid">
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon blue" style="font-size:11px; font-weight:700;">TOTAL</div>
+
+                <div>
+
+                    <p>
+                        Total Customers
+                    </p>
+
+                    <h3 id="totalCustomers">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon red" style="font-size:11px; font-weight:700;">HIGH</div>
+
+                <div>
+
+                    <p>
+                        High Risk
+                    </p>
+
+                    <h3 id="highRisk">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon orange" style="font-size:11px; font-weight:700;">MED</div>
+
+                <div>
+
+                    <p>
+                        Medium Risk
+                    </p>
+
+                    <h3 id="mediumRisk">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="metric-card">
+
+                <div class="metric-icon green" style="font-size:11px; font-weight:700;">LOW</div>
+
+                <div>
+
+                    <p>
+                        Low Risk
+                    </p>
+
+                    <h3 id="lowRisk">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DASHBOARD CONTENT -->
+
+        <div class="content-grid">
+
+
+            <!-- RISK DISTRIBUTION -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Customer Risk Distribution
+                        </h3>
+
+                        <p>
+                            Current churn risk classification
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="risk-chart">
+
+
+                    <div class="bar-container">
+
+                        <div
+                            class="chart-bar high"
+                            id="highBar"
+                            style="height: 20%;"
+                        ></div>
+
+                        <span>
+                            High
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="bar-container">
+
+                        <div
+                            class="chart-bar medium"
+                            id="mediumBar"
+                            style="height: 20%;"
+                        ></div>
+
+                        <span>
+                            Medium
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="bar-container">
+
+                        <div
+                            class="chart-bar low"
+                            id="lowBar"
+                            style="height: 20%;"
+                        ></div>
+
+                        <span>
+                            Low
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MODEL PERFORMANCE -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Selected Model Performance
+                    </h3>
+
+                    <p>
+                        Random Forest evaluation
+                    </p>
+
+                </div>
+
+
+                <div class="model-score">
+
+                    <div>
+
+                        <span>
+                            Accuracy
+                        </span>
+
+                        <strong>
+                            75.20%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div style="width:75.2%;"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="model-score">
+
+                    <div>
+
+                        <span>
+                            ROC-AUC
+                        </span>
+
+                        <strong>
+                            83.60%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div style="width:83.6%;"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="model-score">
+
+                    <div>
+
+                        <span>
+                            Recall
+                        </span>
+
+                        <strong>
+                            78.61%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div style="width:78.61%;"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOP FACTORS -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h3>
+                    Top Churn Factors
+                </h3>
+
+                <p>
+                    Features considered important for churn analysis
+                </p>
+
+            </div>
+
+
+            <div class="factor-grid">
+
+
+                <div class="factor">
+
+                    <span>
+                        01
+                    </span>
+
+                    <strong>
+                        Tenure
+                    </strong>
+
+                    <small>
+                        Customer relationship duration
+                    </small>
+
+                </div>
+
+
+
+                <div class="factor">
+
+                    <span>
+                        02
+                    </span>
+
+                    <strong>
+                        Contract
+                    </strong>
+
+                    <small>
+                        Customer contract type
+                    </small>
+
+                </div>
+
+
+
+                <div class="factor">
+
+                    <span>
+                        03
+                    </span>
+
+                    <strong>
+                        Internet Service
+                    </strong>
+
+                    <small>
+                        Service subscription
+                    </small>
+
+                </div>
+
+
+
+                <div class="factor">
+
+                    <span>
+                        04
+                    </span>
+
+                    <strong>
+                        Monthly Charges
+                    </strong>
+
+                    <small>
+                        Recurring billing amount
+                    </small>
+
+                </div>
+
+
+
+                <div class="factor">
+
+                    <span>
+                        05
+                    </span>
+
+                    <strong>
+                        Total Charges
+                    </strong>
+
+                    <small>
+                        Customer spending
+                    </small>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ADD NEW CUSTOMER (LIVE INFERENCE)
+    ====================================================== -->
+
+    <section
+        id="add-customer-section"
+        class="page-section"
+    >
+
+        <div class="page-title">
+            <span class="eyebrow">ENTERPRISE CRM</span>
+            <h2>Add New Customer & Predict Churn Risk</h2>
+            <p>Input customer subscription profile for instant real-time machine learning prediction and personalized retention strategy.</p>
+        </div>
+
+        <div style="background: #ffffff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 30px;">
+            <form id="addCustomerForm" onsubmit="submitNewCustomer(event)">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 24px;">
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Customer ID</label>
+                        <input type="text" id="new_customerID" placeholder="e.g. CUST-9012" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;" required>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Contract Type</label>
+                        <select id="new_Contract" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="Month-to-month">Month-to-month</option>
+                            <option value="One year">One year</option>
+                            <option value="Two year">Two year</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Tenure (Months)</label>
+                        <input type="number" id="new_tenure" value="4" min="0" max="72" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;" required>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Monthly Charges (₹)</label>
+                        <input type="number" step="0.01" id="new_MonthlyCharges" value="85.50" min="10" max="200" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;" required>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Internet Service</label>
+                        <select id="new_InternetService" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="Fiber optic">Fiber optic</option>
+                            <option value="DSL">DSL</option>
+                            <option value="No">No Internet</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Tech Support</label>
+                        <select id="new_TechSupport" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Online Security</label>
+                        <select id="new_OnlineSecurity" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Online Backup</label>
+                        <select id="new_OnlineBackup" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Payment Method</label>
+                        <select id="new_PaymentMethod" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="Electronic check">Electronic check</option>
+                            <option value="Mailed check">Mailed check</option>
+                            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                            <option value="Credit card (automatic)">Credit card (automatic)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Paperless Billing</label>
+                        <select id="new_PaperlessBilling" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Senior Citizen</label>
+                        <select id="new_SeniorCitizen" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#475569;">Streaming (TV/Movies)</label>
+                        <select id="new_Streaming" style="width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <button type="submit" style="padding: 12px 24px; background: #2563eb; color: #ffffff; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer;">
+                        Calculate Churn Risk & Save
+                    </button>
+                    <span id="addCustomerStatus" style="font-size: 13px; color: #64748b;"></span>
+                </div>
+            </form>
+
+            <div id="newCustomerResult" style="display: none; margin-top: 24px; padding: 22px; background: #f8fafc; border-radius: 12px; border: 1.5px solid #e2e8f0;">
+                <!-- Result dynamically rendered here -->
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         UPLOAD DATASET
+    ====================================================== -->
+
+    <section
+        id="upload"
+        class="page-section"
+    >
+
+
+        <div class="page-title">
+
+            <span class="eyebrow">
+                DATA MANAGEMENT
+            </span>
+
+            <h2>
+                Upload Customer Dataset
+            </h2>
+
+            <p>
+                Upload a raw Telco Customer Churn CSV
+                to generate AI predictions.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="upload-box"
+            id="dropZone"
+        >
+
+
+            <div class="upload-icon">
+                ↑
+            </div>
+
+
+            <h3>
+                Drag & Drop CSV
+            </h3>
+
+
+            <p>
+                or choose a file from your computer
+            </p>
+
+
+            <label class="upload-button">
+
+                Choose CSV File
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".csv"
+                    hidden
+                >
+
+            </label>
+
+
+            <small>
+                Supported format: CSV
+            </small>
+
+
+        </div>
+
+
+
+        <div
+            id="uploadResult"
+            class="upload-result hidden"
+        ></div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CUSTOMERS
+    ====================================================== -->
+
+    <section
+        id="customers"
+        class="page-section"
+    >
+
+
+        <div class="page-title">
+
+            <span class="eyebrow">
+                CUSTOMER INTELLIGENCE
+            </span>
+
+            <h2>
+                Customer Risk Analysis
+            </h2>
+
+            <p>
+                Search and analyze customers according
+                to predicted churn probability.
+            </p>
+
+        </div>
+
+
+
+        <!-- RISK-WISE EXPORT ACTIONS -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; color: #475569;">Export Reports:</span>
+            <button type="button" class="primary-button" style="background:#dc2626; padding: 8px 14px; font-size: 13px;" onclick="downloadRiskCsv('high')">
+                High Risk Only (CSV)
+            </button>
+            <button type="button" class="primary-button" style="background:#d97706; padding: 8px 14px; font-size: 13px;" onclick="downloadRiskCsv('medium')">
+                Medium Risk Only (CSV)
+            </button>
+            <button type="button" class="primary-button" style="background:#16a34a; padding: 8px 14px; font-size: 13px;" onclick="downloadRiskCsv('low')">
+                Low Risk Only (CSV)
+            </button>
+            <button type="button" class="secondary-button" style="padding: 8px 14px; font-size: 13px;" onclick="downloadRiskCsv('all')">
+                Export All (CSV)
+            </button>
+        </div>
+
+        <!-- SEARCH -->
+
+        <div class="search-bar">
+
+            <input
+                type="text"
+                id="customerSearch"
+                placeholder="Search Customer ID..."
+            >
+
+
+            <button
+                onclick="searchCustomer()"
+            >
+                Search
+            </button>
+
+        </div>
+
+
+
+        <!-- FILTERS -->
+
+        <div class="risk-filters">
+
+
+            <button
+                class="filter-button active"
+                onclick="filterCustomers('')"
+            >
+                All
+            </button>
+
+
+            <button
+                class="filter-button"
+                onclick="filterCustomers('high')"
+            >
+                High
+            </button>
+
+
+            <button
+                class="filter-button"
+                onclick="filterCustomers('medium')"
+            >
+                Medium
+            </button>
+
+
+            <button
+                class="filter-button"
+                onclick="filterCustomers('low')"
+            >
+                Low
+            </button>
+
+
+        </div>
+
+
+
+        <!-- CUSTOMER COUNT -->
+
+        <div class="customer-summary">
+
+            <span>
+
+                Showing
+
+                <strong id="customerCount">
+                    0
+                </strong>
+
+                customers
+
+            </span>
+
+
+            <span>
+                Highest churn probability first
+            </span>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="panel">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer ID
+                            </th>
+
+                            <th>
+                                Churn Probability
+                            </th>
+
+                            <th>
+                                Prediction
+                            </th>
+
+                            <th>
+                                Risk Level
+                            </th>
+
+                            <th>
+                                Retention Offer
+                            </th>
+
+                            <th>
+                                Details
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="customerTable">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                style="
+                                    text-align:center;
+                                    padding:40px;
+                                "
+                            >
+
+                                Loading customers...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ML MODELS
+    ====================================================== -->
+
+    <section
+        id="model"
+        class="page-section"
+    >
+
+
+        <div class="page-title">
+
+            <span class="eyebrow">
+                MACHINE LEARNING
+            </span>
+
+            <h2>
+                Model Comparison
+            </h2>
+
+            <p>
+                Evaluation of classification algorithms
+                used in the churn project.
+            </p>
+
+        </div>
+
+
+
+        <div class="panel">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Model
+                            </th>
+
+                            <th>
+                                Accuracy
+                            </th>
+
+                            <th>
+                                Precision
+                            </th>
+
+                            <th>
+                                Recall
+                            </th>
+
+                            <th>
+                                F1 Score
+                            </th>
+
+                            <th>
+                                ROC-AUC
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>
+                                Logistic Regression
+                            </td>
+
+                            <td>
+                                72.64%
+                            </td>
+
+                            <td>
+                                49.09%
+                            </td>
+
+                            <td>
+                                79.68%
+                            </td>
+
+                            <td>
+                                60.75%
+                            </td>
+
+                            <td>
+                                83.50%
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                Decision Tree
+                            </td>
+
+                            <td>
+                                73.42%
+                            </td>
+
+                            <td>
+                                50.00%
+                            </td>
+
+                            <td>
+                                79.68%
+                            </td>
+
+                            <td>
+                                61.44%
+                            </td>
+
+                            <td>
+                                82.70%
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr class="best-row">
+
+                            <td>
+                                <strong>
+                                    Random Forest
+                                </strong>
+                            </td>
+
+                            <td>
+                                <strong>
+                                    75.20%
+                                </strong>
+                            </td>
+
+                            <td>
+                                52.22%
+                            </td>
+
+                            <td>
+                                78.61%
+                            </td>
+
+                            <td>
+                                62.75%
+                            </td>
+
+                            <td>
+                                <strong>
+                                    83.60%
+                                </strong>
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                XGBoost
+                            </td>
+
+                            <td>
+                                <strong>
+                                    79.10%
+                                </strong>
+                            </td>
+
+                            <td>
+                                62.42%
+                            </td>
+
+                            <td>
+                                53.74%
+                            </td>
+
+                            <td>
+                                57.76%
+                            </td>
+
+                            <td>
+                                83.60%
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="model-selection">
+
+            <div>
+
+                <span class="eyebrow">
+                    SELECTED FOR PREDICTION
+                </span>
+
+
+                <h2>
+                    Random Forest
+                </h2>
+
+
+                <p>
+
+                    Random Forest is used as the
+                    prediction model for the application
+                    because of its strong churn recall
+                    and ROC-AUC performance.
+
+                </p>
+
+            </div>
+
+
+            <div class="selected-score">
+
+                83.60%
+
+                <small>
+                    ROC-AUC
+                </small>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EXPLAINABILITY
+    ====================================================== -->
+
+    <section
+        id="explain"
+        class="page-section"
+    >
+
+
+        <div class="page-title">
+
+            <span class="eyebrow">
+                EXPLAINABLE AI
+            </span>
+
+            <h2>
+                SHAP Explainability
+            </h2>
+
+            <p>
+                Understand which features influence
+                customer churn predictions.
+            </p>
+
+        </div>
+
+
+
+        <div class="content-grid">
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Important Features
+                    </h3>
+
+                    <p>
+                        Based on project explainability analysis
+                    </p>
+
+                </div>
+
+
+                <div class="shap-list">
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            1
+                        </strong>
+
+                        <span>
+                            Tenure
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            2
+                        </strong>
+
+                        <span>
+                            Contract_Two year
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            3
+                        </strong>
+
+                        <span>
+                            InternetService_Fiber optic
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            4
+                        </strong>
+
+                        <span>
+                            TotalCharges
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            5
+                        </strong>
+
+                        <span>
+                            PaymentMethod_Electronic check
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="shap-item">
+
+                        <strong>
+                            6
+                        </strong>
+
+                        <span>
+                            Contract_One year
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Business Interpretation
+                    </h3>
+
+                </div>
+
+
+                <div class="explanation">
+
+
+                    <div>
+
+                        <span class="explain-icon" style="color:#ef4444; font-weight:bold; font-size:18px;">&bull;</span>
+
+
+                        <div>
+
+                            <strong>
+                                High Churn Risk
+                            </strong>
+
+
+                            <p>
+
+                                Customers with short tenure,
+                                certain contract types and
+                                higher charges may require
+                                additional retention attention.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <span class="explain-icon" style="color:#22c55e; font-weight:bold; font-size:18px;">&bull;</span>
+
+
+                        <div>
+
+                            <strong>
+                                Retention Opportunity
+                            </strong>
+
+
+                            <p>
+
+                                Early identification allows
+                                businesses to take proactive
+                                retention actions.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ABOUT
+    ====================================================== -->
+
+    <section
+        id="about"
+        class="page-section"
+    >
+
+
+        <div class="page-title">
+
+            <span class="eyebrow">
+                MAJOR PROJECT
+            </span>
+
+
+            <h2>
+                Explainable Customer Churn Prediction
+            </h2>
+
+
+            <p>
+                Early Risk Detection & Customer Retention Intelligence
+            </p>
+
+        </div>
+
+
+
+        <div class="about-grid">
+
+
+            <div class="panel">
+
+                <h3>
+                    Problem Overview
+                </h3>
+
+                <p>
+
+                    Customer churn can negatively affect
+                    business revenue. This system predicts
+                    customers who are likely to leave.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <h3>
+                    Machine Learning Engine
+                </h3>
+
+                <p>
+
+                    Multiple classification algorithms are
+                    evaluated using accuracy, precision,
+                    recall, F1-score and ROC-AUC.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <h3>
+                    Explainable AI (SHAP)
+                </h3>
+
+                <p>
+
+                    SHAP analysis is used to understand
+                    feature-level influence on churn predictions.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <h3>
+                    Database Architecture
+                </h3>
+
+                <p>
+
+                    MySQL stores customer information,
+                    predictions and retention recommendations.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <h3>
+                    Web Application
+                </h3>
+
+                <p>
+
+                    Flask backend with HTML, CSS and
+                    JavaScript provides an interactive
+                    customer churn application.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <h3>
+                    Business Value & Impact
+                </h3>
+
+                <p>
+
+                    Businesses can prioritize high-risk
+                    customers and take proactive retention actions.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+<!-- =========================================================
+     CUSTOMER DETAILS MODAL
+========================================================= -->
+
+<div id="customerModal" class="customer-modal">
+
+    <div class="customer-modal-content">
+
+        <button
+            class="modal-close"
+            onclick="closeCustomerModal()"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-header">
+
+            <span class="eyebrow">
+                AI CUSTOMER ANALYSIS
+            </span>
+
+            <h2 id="modalCustomerId">
+                Customer
+            </h2>
+
+            <p>
+                Individual churn risk assessment
+            </p>
+
+        </div>
+
+
+        <div class="customer-risk-card">
+
+            <div>
+
+                <span>
+                    Churn Probability
+                </span>
+
+                <strong id="modalProbability">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div id="modalRiskBadge"
+                 class="risk high-risk">
+
+                HIGH
+
+            </div>
+
+        </div>
+
+
+        <div class="customer-detail-grid">
+
+            <div class="detail-card">
+
+                <span>
+                    Prediction
+                </span>
+
+                <strong id="modalPrediction">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <span>
+                    Risk Level
+                </span>
+
+                <strong id="modalRisk">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="recommendation-card" style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div class="recommendation-title" style="margin: 0;">
+                    Tailored Retention Strategy
+                </div>
+                <span id="modalPersonaBadge" style="background: #e0e7ff; color: #3730a3; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px;">
+                    Standard Profile
+                </span>
+            </div>
+
+            <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">
+                <strong>Primary Risk Factor:</strong> <span id="modalPrimaryDriver">-</span>
+            </div>
+
+            <div class="offer-box-modal">
+                <div class="offer-label">What We Can Offer (Proposed Retention Concession):</div>
+                <div id="modalSpecificOffer" class="offer-text">-</div>
+            </div>
+            <p id="modalRecommendation" style="display:none;">-</p>
+
+            <div id="modalActionContainer" style="font-size: 13px; color: #334155; margin-bottom: 12px;">
+                <ul id="modalActionList" style="padding-left: 20px; line-height: 1.5;"></ul>
+            </div>
+
+            <div id="modalScriptBox" style="background: #f8fafc; border-left: 3px solid #2563eb; padding: 10px 12px; border-radius: 4px; font-size: 12px; color: #1e293b; display: none;">
+                <div style="font-weight: 600; margin-bottom: 4px; color: #2563eb; display:flex; justify-content:space-between; align-items:center;">
+                    <span>Recommended Retention Script / Offer Pitch:</span>
+                    <button type="button" onclick="copyCallScript()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Copy Script</button>
+                </div>
+                <p id="modalCallScript" style="margin: 0; font-style: italic;"></p>
+            </div>
+        </div>
+
+        <!-- WHAT-IF COUNTERFACTUAL SIMULATOR -->
+        <div style="background: #f1f5f9; border-radius: 12px; padding: 16px; margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <strong style="font-size: 13px; color: #0f172a;">Interactive "What-If" Counterfactual Simulator</strong>
+                <span style="font-size: 11px; color: #64748b;">Test how retention offers lower this customer's risk</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                <div>
+                    <label style="font-size: 11px; color: #475569; display: block; margin-bottom: 3px;">Contract Offer</label>
+                    <select id="whatif_Contract" style="width: 100%; font-size: 12px; padding: 6px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                        <option value="Month-to-month">Month-to-month</option>
+                        <option value="One year" selected>One year</option>
+                        <option value="Two year">Two year</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="font-size: 11px; color: #475569; display: block; margin-bottom: 3px;">Tech Support</label>
+                    <select id="whatif_TechSupport" style="width: 100%; font-size: 12px; padding: 6px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                        <option value="No">No</option>
+                        <option value="Yes" selected>Yes (Free Addon)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="font-size: 11px; color: #475569; display: block; margin-bottom: 3px;">Monthly Bill (₹)</label>
+                    <input type="number" id="whatif_MonthlyCharges" style="width: 100%; font-size: 12px; padding: 5px; border-radius: 6px; border: 1px solid #cbd5e1;" value="65.00">
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button type="button" onclick="runWhatIfSimulation()" style="background: #0f172a; color: #ffffff; border: none; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                    Recalculate Risk
+                </button>
+                <div id="whatifResult" style="font-size: 13px; font-weight: 700; color: #16a34a; display: none;"></div>
+            </div>
+        </div>
+
+
+        <div class="probability-section">
+
+            <div class="probability-header">
+
+                <span>
+                    Churn Risk
+                </span>
+
+                <strong id="modalProbabilityText">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="large-probability-bar">
+
+                <div
+                    id="modalProbabilityBar"
+                    style="width:0%;"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-button"
+                onclick="closeCustomerModal()"
+            >
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+
+</body>
+
+</html>
