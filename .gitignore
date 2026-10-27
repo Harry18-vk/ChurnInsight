@@ -46,3 +46,7 @@ $RECYCLE.BIN/
 
 # Logs
 *.log
+
+# Local presentation and viva documents
+presentation_and_research/
+
