@@ -3,164 +3,595 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - ChurnInsight</title>
+    <title>Admin Login - ChurnInsight Intelligence Platform</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='churninsight-icon.svg') }}">
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #030712;
+            color: #f1f5f9;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen dark blue abstract tech waves wrapper */
         .login-wrapper {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 90%);
-            padding: 20px;
-        }
-        .login-card {
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-            width: 100%;
-            max-width: 440px;
+            padding: 24px;
+            background: radial-gradient(circle at 50% 30%, #0a1738 0%, #050d24 50%, #020617 100%);
             overflow: hidden;
-            animation: fadeIn 0.4s ease-out;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Ambient Glow Spheres */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.55;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
         }
+
+        .glow-1 {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(2, 132, 199, 0.1) 70%, transparent 100%);
+            top: -120px;
+            left: -80px;
+        }
+
+        .glow-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(30, 58, 138, 0.15) 70%, transparent 100%);
+            bottom: -150px;
+            right: -100px;
+            animation-duration: 11s;
+        }
+
+        .glow-3 {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.28) 0%, transparent 70%);
+            top: 45%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            animation-duration: 9s;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translateY(0); opacity: 0.45; }
+            50% { transform: scale(1.1) translateY(-20px); opacity: 0.65; }
+            100% { transform: scale(1.05) translateY(15px); opacity: 0.5; }
+        }
+
+        /* Abstract Tech Grid Matrix */
+        .tech-grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            background-position: center center;
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 30%, transparent 85%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 30%, transparent 85%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Abstract Tech Wave SVG Layers */
+        .tech-waves-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .wave-svg {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            object-fit: cover;
+        }
+
+        /* Animated Tech Wave Bands */
+        .wave-band {
+            transform-origin: center;
+        }
+
+        .wave-flow-1 {
+            animation: waveMotion1 16s ease-in-out infinite alternate;
+        }
+
+        .wave-flow-2 {
+            animation: waveMotion2 12s ease-in-out infinite alternate;
+        }
+
+        .wave-flow-3 {
+            animation: waveMotion3 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveMotion1 {
+            0% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-24px) scaleY(1.04); }
+            100% { transform: translateY(18px) scaleY(0.97); }
+        }
+
+        @keyframes waveMotion2 {
+            0% { transform: translateY(12px) scaleX(1); }
+            50% { transform: translateY(-18px) scaleX(1.02); }
+            100% { transform: translateY(-8px) scaleX(0.98); }
+        }
+
+        @keyframes waveMotion3 {
+            0% { transform: translateY(-10px); }
+            50% { transform: translateY(22px); }
+            100% { transform: translateY(-15px); }
+        }
+
+        /* Glassmorphic Login Card */
+        .login-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(11, 20, 38, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            border-radius: 24px;
+            box-shadow: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.75),
+                0 0 40px rgba(37, 99, 235, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: cardAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Login Card Header */
         .login-header {
-            background: #111827;
-            padding: 36px 30px 30px;
+            background: linear-gradient(180deg, rgba(15, 27, 53, 0.85) 0%, rgba(10, 19, 39, 0.6) 100%);
+            padding: 38px 32px 28px;
             text-align: center;
-            color: #ffffff;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+            position: relative;
         }
-        .login-logo {
-            width: 52px;
+
+        .login-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+        }
+
+        /* Logo Branding Display */
+        .logo-container {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            text-decoration: none;
+        }
+
+        .brand-logo-image {
             height: 52px;
-            background: #2563eb;
+            width: auto;
+            max-width: 280px;
+            filter: drop-shadow(0 6px 16px rgba(14, 165, 233, 0.35));
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo-image:hover {
+            transform: scale(1.02);
+        }
+
+        .login-subtitle {
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            margin-top: 4px;
+        }
+
+        /* Login Card Body */
+        .login-body {
+            padding: 32px 32px 36px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .form-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            width: 18px;
+            height: 18px;
+            color: #64748b;
+            transition: color 0.2s ease;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 13px 16px 13px 44px;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1.5px solid rgba(51, 65, 85, 0.75);
+            border-radius: 12px;
+            font-size: 14px;
             color: #ffffff;
-            border-radius: 14px;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: #475569;
+        }
+
+        .form-input:focus {
+            border-color: #38bdf8;
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .form-input:focus + .input-icon,
+        .form-input-wrap:focus-within .input-icon {
+            color: #38bdf8;
+        }
+
+        /* Login Submit Button */
+        .login-btn {
+            position: relative;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 10px;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0 auto 16px;
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
-        }
-        .login-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .login-header p {
-            font-size: 13px;
-            color: #94a3b8;
-        }
-        .login-body {
-            padding: 32px 30px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-        .form-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.2s ease;
-            outline: none;
-            color: #0f172a;
-        }
-        .form-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-        .login-btn {
-            width: 100%;
-            padding: 13px;
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            margin-top: 8px;
-        }
-        .login-btn:hover {
-            background: #1d4ed8;
-        }
-        .login-btn:active {
-            transform: scale(0.99);
-        }
-        .login-error {
-            background: #fef2f2;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-            padding: 11px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
             gap: 8px;
         }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 50%, #1e40af 100%);
+            box-shadow: 0 10px 28px rgba(56, 189, 248, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Error Notification */
+        .login-error {
+            background: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        /* Demo Credentials Pill */
         .demo-credentials {
             margin-top: 24px;
-            padding: 12px 14px;
-            background: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            border-radius: 10px;
-            font-size: 12px;
-            color: #64748b;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px dashed rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            font-size: 12.5px;
+            color: #94a3b8;
             text-align: center;
+            line-height: 1.5;
         }
+
+        .demo-credentials strong {
+            color: #e2e8f0;
+        }
+
         .demo-credentials code {
-            color: #1e293b;
+            color: #38bdf8;
             font-weight: 600;
-            background: #e2e8f0;
-            padding: 2px 6px;
-            border-radius: 4px;
+            background: rgba(30, 41, 59, 0.85);
+            padding: 2px 7px;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Bottom Tech Badge */
+        .system-badge {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
         }
     </style>
 </head>
 <body>
     <div class="login-wrapper">
+        <!-- Ambient Glowing Blooms -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+
+        <!-- Tech Grid Overlay -->
+        <div class="tech-grid-overlay"></div>
+
+        <!-- Dark Blue Abstract Tech Waves Canvas -->
+        <div class="tech-waves-canvas">
+            <svg class="wave-svg" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Deep Ocean Tech Blue Waves -->
+                    <linearGradient id="waveBgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#0284c7" stop-opacity="0.12"/>
+                        <stop offset="50%" stop-color="#1e40af" stop-opacity="0.22"/>
+                        <stop offset="100%" stop-color="#0b192e" stop-opacity="0.35"/>
+                    </linearGradient>
+
+                    <linearGradient id="waveCyanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.08"/>
+                        <stop offset="35%" stop-color="#2563eb" stop-opacity="0.32"/>
+                        <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.1"/>
+                    </linearGradient>
+
+                    <linearGradient id="waveNeonStroke1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#0284c7" stop-opacity="0.2"/>
+                        <stop offset="25%" stop-color="#00f2fe" stop-opacity="0.85"/>
+                        <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.9"/>
+                        <stop offset="85%" stop-color="#38bdf8" stop-opacity="0.7"/>
+                        <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.1"/>
+                    </linearGradient>
+
+                    <linearGradient id="waveNeonStroke2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.1"/>
+                        <stop offset="30%" stop-color="#38bdf8" stop-opacity="0.75"/>
+                        <stop offset="75%" stop-color="#00f2fe" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#2563eb" stop-opacity="0.2"/>
+                    </linearGradient>
+
+                    <linearGradient id="waveNeonStroke3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#0369a1" stop-opacity="0.15"/>
+                        <stop offset="50%" stop-color="#60a5fa" stop-opacity="0.7"/>
+                        <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.2"/>
+                    </linearGradient>
+
+                    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
+
+                <!-- Deep Background Tech Waves -->
+                <g class="wave-band wave-flow-3">
+                    <path d="M-100,560 C240,430 480,720 820,540 C1140,380 1340,620 1600,490 L1600,920 L-100,920 Z" 
+                          fill="url(#waveBgGradient)"/>
+                </g>
+
+                <!-- Middle Translucent Abstract Wave -->
+                <g class="wave-band wave-flow-1">
+                    <path d="M-100,650 C260,520 540,780 900,600 C1220,440 1390,690 1600,580 L1600,920 L-100,920 Z" 
+                          fill="url(#waveCyanGradient)"/>
+                </g>
+
+                <!-- Glowing Futuristic Wave Crest 1 -->
+                <g class="wave-band wave-flow-1">
+                    <path d="M-100,650 C260,520 540,780 900,600 C1220,440 1390,690 1600,580" 
+                          fill="none" stroke="url(#waveNeonStroke1)" stroke-width="3" filter="url(#neonGlow)"/>
+                </g>
+
+                <!-- Glowing Futuristic Wave Crest 2 -->
+                <g class="wave-band wave-flow-2">
+                    <path d="M-100,480 C200,620 560,370 880,520 C1200,660 1380,430 1600,510" 
+                          fill="none" stroke="url(#waveNeonStroke2)" stroke-width="2.5" stroke-dasharray="12 4 4 4" filter="url(#neonGlow)"/>
+                </g>
+
+                <!-- High-Frequency Data Waveform 3 -->
+                <g class="wave-band wave-flow-3">
+                    <path d="M-100,590 C220,530 460,650 780,500 C1100,360 1340,560 1600,440" 
+                          fill="none" stroke="url(#waveNeonStroke3)" stroke-width="1.8"/>
+                </g>
+
+                <!-- Digital Matrix Contour Tech Lines -->
+                <path d="M-50,710 C320,600 640,810 980,680 C1300,560 1480,740 1600,650" 
+                      fill="none" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1.2" stroke-dasharray="6 8"/>
+
+                <path d="M-50,420 C280,530 600,320 920,450 C1240,570 1450,380 1600,460" 
+                      fill="none" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" stroke-dasharray="4 6"/>
+
+                <!-- Tech Wave Floating Sensor Nodes -->
+                <g fill="#00f2fe">
+                    <circle cx="260" cy="520" r="4" filter="url(#neonGlow)"/>
+                    <circle cx="540" cy="780" r="3"/>
+                    <circle cx="900" cy="600" r="5" filter="url(#neonGlow)"/>
+                    <circle cx="1220" cy="440" r="3.5"/>
+                    <circle cx="460" cy="650" r="3" fill="#38bdf8"/>
+                    <circle cx="880" cy="520" r="4" filter="url(#neonGlow)"/>
+                    <circle cx="1380" cy="430" r="3.5" fill="#38bdf8"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Login Card -->
         <div class="login-card">
             <div class="login-header">
-                <div class="login-logo">CI</div>
-                <h2>ChurnInsight Portal</h2>
-                <p>Enterprise Customer Retention Intelligence</p>
+                <div class="logo-container">
+                    <!-- ChurnInsight Brand Logo -->
+                    <img class="brand-logo-image" src="{{ url_for('static', filename='churninsight-logo.svg') }}" alt="ChurnInsight Logo" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                    
+                    <!-- High-Res Fallback Vector Logo if asset ever missing -->
+                    <div id="fallback-logo" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="280" height="52" fill="none">
+                            <rect x="2" y="2" width="52" height="52" rx="14" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                            <path d="M 16 26 A 10 10 0 1 1 26 36" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 18 27 L 23 21 L 28 30 L 34 17 L 38 23" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                            <text x="68" y="34" font-family="sans-serif" font-size="26" font-weight="800" fill="#ffffff">Churn<tspan fill="#38bdf8">Insight</tspan></text>
+                            <text x="70" y="48" font-family="sans-serif" font-size="9" font-weight="600" fill="#94a3b8" letter-spacing="1.5">INTELLIGENCE PLATFORM</text>
+                        </svg>
+                    </div>
+                </div>
+                <p class="login-subtitle">Enterprise Customer Retention Intelligence</p>
             </div>
+
             <div class="login-body">
                 {% if error %}
                 <div class="login-error">
-                    {{ error }}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>{{ error }}</span>
                 </div>
                 {% endif %}
+
                 <form action="{{ url_for('login') }}" method="POST">
                     <div class="form-group">
-                        <label class="form-label" for="username">Admin Username</label>
-                        <input class="form-input" type="text" id="username" name="username" value="admin" placeholder="e.g. admin" required autofocus>
+                        <label class="form-label" for="username">
+                            <span>Admin Username</span>
+                        </label>
+                        <div class="form-input-wrap">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input class="form-input" type="text" id="username" name="username" value="admin" placeholder="e.g. admin" required autofocus autocomplete="username">
+                        </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
-                        <input class="form-input" type="password" id="password" name="password" value="admin123" placeholder="••••••••" required>
+                        <label class="form-label" for="password">
+                            <span>Password</span>
+                        </label>
+                        <div class="form-input-wrap">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <input class="form-input" type="password" id="password" name="password" value="admin123" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
                     </div>
-                    <button type="submit" class="login-btn">Secure Sign In</button>
+
+                    <button type="submit" class="login-btn">
+                        <span>Secure Sign In</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </form>
 
                 <div class="demo-credentials">
-                    <strong>Default Credentials:</strong> Username: <code>admin</code> | Password: <code>admin123</code>
+                    <strong>Demo Access:</strong> Username: <code>admin</code> &nbsp;|&nbsp; Password: <code>admin123</code>
+                </div>
+
+                <div class="system-badge">
+                    <span class="status-dot"></span>
+                    <span>ML Pipeline Active &bull; XGBoost Model v2.4</span>
                 </div>
             </div>
         </div>
