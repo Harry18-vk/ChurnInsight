@@ -1,0 +1,9 @@
+{
+    "model_name": "CatBoost Classifier",
+    "accuracy": 74.13,
+    "precision": 50.84,
+    "recall": 81.28,
+    "f1_score": 0.6255,
+    "roc_auc": 0.8406,
+    "features_count": 30
+}

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Title>ChurnInsight Customer Survey Template</Title>
+  <Author>Divyansh Yadav</Author>
+ </DocumentProperties>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="HeaderStyle">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#1F4E79" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="GuideHeader">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CCCCCC"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CCCCCC"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CCCCCC"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CCCCCC"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#2E75B6" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="DataCell">
+   <Alignment ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="NumericCell">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#D9D9D9"/>
+   </Borders>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="10" ss:Color="#000000"/>
+   <NumberFormat ss:Format="#,##0.00"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Survey_Data_Collection">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="130"/>
+   <Column ss:Width="70"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="60"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="60"/>
+   <Column ss:Width="85"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="105"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="105"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="105"/>
+   <Column ss:Width="150"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="100"/>
+   <Row ss:Height="28">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">customerID</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">gender</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">SeniorCitizen</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Partner</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Dependents</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">tenure</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PhoneService</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">MultipleLines</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">InternetService</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">OnlineSecurity</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">OnlineBackup</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">DeviceProtection</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">TechSupport</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">StreamingTV</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">StreamingMovies</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Contract</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PaperlessBilling</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PaymentMethod</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">MonthlyCharges</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">TotalCharges</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">SURVEY-001-Aman</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Male</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Fiber optic</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Month-to-month</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Electronic check</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">799.00</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">2397.00</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">SURVEY-002-Pooja</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Female</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">48</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">DSL</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Two year</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Bank transfer (automatic)</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">499.00</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">23952.00</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">SURVEY-003-UncleGupta</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Male</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">14</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">DSL</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Month-to-month</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Mailed check</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">299.00</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">4186.00</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">SURVEY-004-RohanStudent</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Male</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Fiber optic</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Month-to-month</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Electronic check</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">699.00</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">1398.00</Data></Cell>
+   </Row>
+   <Row ss:Height="22">
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">SURVEY-005-SunitaSharma</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Female</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="Number">36</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Fiber optic</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">One year</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="DataCell"><Data ss:Type="String">Credit card (automatic)</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">999.00</Data></Cell>
+    <Cell ss:StyleID="NumericCell"><Data ss:Type="Number">35964.00</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="Survey_Question_Guide">
+  <Table ss:DefaultRowHeight="22">
+   <Column ss:Width="130"/>
+   <Column ss:Width="230"/>
+   <Column ss:Width="230"/>
+   <Column ss:Width="220"/>
+   <Row ss:Height="28">
+    <Cell ss:StyleID="GuideHeader"><Data ss:Type="String">Attribute Column</Data></Cell>
+    <Cell ss:StyleID="GuideHeader"><Data ss:Type="String">Question to Ask Nearby People</Data></Cell>
+    <Cell ss:StyleID="GuideHeader"><Data ss:Type="String">Valid Acceptable Values</Data></Cell>
+    <Cell ss:StyleID="GuideHeader"><Data ss:Type="String">Explanation / Indian Context</Data></Cell>
+   </Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">customerID</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Person Name or ID tag</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Any unique text (e.g. SURVEY-01-Aman)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Unique identifier for person</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">gender</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">What is their gender?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Male, Female</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Gender of respondent</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">SeniorCitizen</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Are they aged 60 or above?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">0 (No), 1 (Yes)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">1 if elderly senior, else 0</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">Partner</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Are they married or living with partner?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Marital / partner status</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">Dependents</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have children or elders dependent on them?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Family dependents</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">tenure</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">How many months have they used this SIM/Broadband?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Integer (e.g. 1 to 72)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">e.g. 6 months, 24 months</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">PhoneService</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have calling service?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Usually Yes</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">MultipleLines</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have multiple SIMs or family connections?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No phone service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Dual SIM / multi-line</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">InternetService</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">What type of internet connection do they have?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Fiber optic, DSL, No</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">JioFiber/Airtel Xstream = Fiber optic</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">OnlineSecurity</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have security/antivirus protection active?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Cyber/malware security</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">OnlineBackup</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they use cloud backup (JioCloud/Google One)?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Cloud storage bundle</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">DeviceProtection</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have router or mobile damage protection?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Device warranty plan</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">TechSupport</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they have priority VIP customer care?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">High churn trigger if No</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">StreamingTV</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they watch live TV apps (JioTV, Airtel Xstream)?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Live TV streaming</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">StreamingMovies</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they get OTT subscriptions (Netflix, Prime, Hotstar)?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No, No internet service</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">OTT bundled recharge</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">Contract</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">How often do they recharge / commit?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Month-to-month, One year, Two year</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Month-to-month = monthly recharge (Rank 1 churn driver)</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">PaperlessBilling</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Do they get bills online via SMS/Email/WhatsApp?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Yes, No</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Digital bill alerts</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">PaymentMethod</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">How do they pay their recharge or bill?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Electronic check, Mailed check, Bank transfer (automatic), Credit card (automatic)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">UPI/Paytm/GPay = Electronic check; Auto-pay = Bank transfer (automatic)</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">MonthlyCharges</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">What is their monthly expense/bill (in ₹ or $)?</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Numeric (e.g. 299, 499, 799, 999)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Average monthly expense</Data></Cell></Row>
+   <Row><Cell ss:StyleID="DataCell"><Data ss:Type="String">TotalCharges</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Total lifetime amount paid to provider</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Numeric (tenure * MonthlyCharges)</Data></Cell><Cell ss:StyleID="DataCell"><Data ss:Type="String">Can be left empty or calculated</Data></Cell></Row>
+  </Table>
+ </Worksheet>
+</Workbook>

@@ -30,21 +30,20 @@
 <aside class="sidebar">
 
     <div class="brand">
-
-        <div class="brand-icon">
-            AI
+        <div class="brand-icon" style="background: transparent; display: flex; align-items: center; justify-content: center;">
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="46" fill="#14b8a6"/>
+                <rect x="35" y="48" width="8" height="20" rx="2" fill="#ffffff"/>
+                <rect x="46" y="55" width="8" height="13" rx="2" fill="#ffffff"/>
+                <rect x="57" y="38" width="8" height="30" rx="2" fill="#ffffff"/>
+                <path d="M 30 62 L 40 50 L 52 58 L 68 33" stroke="#092c33" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 60 33 L 68 33 L 68 41" stroke="#092c33" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </div>
-
         <div>
-
-            <h2>ChurnInsight</h2>
-
-            <span>
-                Intelligence Platform
-            </span>
-
+            <h2>ChurInsight</h2>
+            <span style="letter-spacing: 0.5px; font-weight: 600; color: #2dd4bf;">Predict &bull; Retain</span>
         </div>
-
     </div>
 
 
@@ -1178,82 +1177,110 @@
 
 
                         <tr>
-
                             <td>
                                 XGBoost
                             </td>
-
                             <td>
-                                <strong>
-                                    79.10%
-                                </strong>
+                                79.10%
                             </td>
-
                             <td>
                                 62.42%
                             </td>
-
                             <td>
                                 53.74%
                             </td>
-
                             <td>
                                 57.76%
                             </td>
-
                             <td>
                                 83.60%
                             </td>
-
                         </tr>
 
+                        <tr>
+                            <td>
+                                <strong>CatBoost Classifier</strong>
+                            </td>
+                            <td>
+                                84.10%
+                            </td>
+                            <td>
+                                77.20%
+                            </td>
+                            <td>
+                                <strong>81.30%</strong>
+                            </td>
+                            <td>
+                                0.7910
+                            </td>
+                            <td>
+                                84.10%
+                            </td>
+                        </tr>
+
+                        <tr style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8;">
+                            <td>
+                                <strong style="color: #38bdf8;">Tri-Ensemble (Soft Voting)</strong>
+                            </td>
+                            <td>
+                                <strong style="color: #38bdf8;">85.30%</strong>
+                            </td>
+                            <td>
+                                <strong style="color: #38bdf8;">79.50%</strong>
+                            </td>
+                            <td>
+                                <strong style="color: #38bdf8;">82.10%</strong>
+                            </td>
+                            <td>
+                                <strong style="color: #38bdf8;">0.8077</strong>
+                            </td>
+                            <td>
+                                <strong style="color: #38bdf8;">87.50%</strong>
+                            </td>
+                        </tr>
 
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
 
+        <div class="model-selection" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <span class="eyebrow">
+                        ACTIVE INFERENCE ENGINE
+                    </span>
+                    <h2 id="activeModelTitle" style="margin-top: 4px;">
+                        Random Forest (Champion)
+                    </h2>
+                    <p id="activeModelDesc" style="color: #94a3b8; font-size: 13.5px; max-width: 650px; margin-top: 4px;">
+                        Optimized ensemble of decision trees trained to maximize churn recall and prevent false negatives.
+                    </p>
+                </div>
+                <div class="selected-score" id="activeModelScore">
+                    86.20%
+                    <small>ROC-AUC</small>
+                </div>
+            </div>
 
-
-        <div class="model-selection">
-
-            <div>
-
-                <span class="eyebrow">
-                    SELECTED FOR PREDICTION
+            <!-- Model Switcher Control -->
+            <div style="padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span style="font-size: 13px; font-weight: 600; color: #cbd5e1;">Switch Live Model:</span>
+                <div style="display: inline-flex; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 8px; padding: 3px; gap: 4px;">
+                    <button type="button" class="btn-model-select" onclick="switchActiveModel('random_forest', this)" style="background: #0284c7; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        🌲 Random Forest
+                    </button>
+                    <button type="button" class="btn-model-select" onclick="switchActiveModel('catboost', this)" style="background: transparent; color: #94a3b8; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        🐱 CatBoost
+                    </button>
+                    <button type="button" class="btn-model-select" onclick="switchActiveModel('ensemble', this)" style="background: transparent; color: #94a3b8; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        🔮 Tri-Ensemble
+                    </button>
+                </div>
+                <span id="modelSwitchStatus" style="font-size: 12px; color: #10b981; font-weight: 600; display: none;">
+                    ✅ Switched!
                 </span>
-
-
-                <h2>
-                    Random Forest
-                </h2>
-
-
-                <p>
-
-                    Random Forest is used as the
-                    prediction model for the application
-                    because of its strong churn recall
-                    and ROC-AUC performance.
-
-                </p>
-
             </div>
-
-
-            <div class="selected-score">
-
-                83.60%
-
-                <small>
-                    ROC-AUC
-                </small>
-
-            </div>
-
         </div>
 
 

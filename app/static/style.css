@@ -24,7 +24,8 @@ body {
     width: 250px;
     height: 100vh;
 
-    background: #111827;
+    background: #092c33;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
 
     color: white;
 
@@ -107,8 +108,8 @@ nav {
 
 .nav-item:hover,
 .nav-item.active {
-    background: #1e293b;
-
+    background: #0d3d45;
+    border-left: 3px solid #14b8a6;
     color: white;
 }
 
@@ -193,12 +194,14 @@ nav {
 
 .hero {
     background: linear-gradient(
-        120deg,
-        #111827,
-        #1d4ed8
+        135deg,
+        #092c33 0%,
+        #0d4f59 60%,
+        #115e6b 100%
     );
 
     border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(13, 79, 89, 0.2);
 
     padding: 45px;
 
@@ -215,7 +218,8 @@ nav {
 
     font-weight: bold;
 
-    opacity: 0.7;
+    color: #2dd4bf;
+    opacity: 0.9;
 }
 
 
@@ -227,14 +231,14 @@ nav {
 
 
 .hero h2 span {
-    color: #60a5fa;
+    color: #2dd4bf;
 }
 
 
 .hero p {
     max-width: 620px;
 
-    color: #dbeafe;
+    color: #e6f7f6;
 
     line-height: 1.6;
 
@@ -247,15 +251,22 @@ nav {
 
     background: white;
 
-    color: #1d4ed8;
+    color: #0d4f59;
 
-    padding: 13px 22px;
+    padding: 13px 24px;
 
-    border-radius: 10px;
+    border-radius: 9999px;
 
     font-weight: bold;
 
     cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+    background: #f0fdfa;
+    transform: translateY(-1px);
 }
 
 
@@ -477,7 +488,7 @@ nav {
 .progress div {
     height: 100%;
 
-    background: #2563eb;
+    background: #0d4f59;
 
     border-radius: 20px;
 }
@@ -511,7 +522,7 @@ nav {
 .factor span {
     display: block;
 
-    color: #2563eb;
+    color: #0d4f59;
 
     font-size: 11px;
 
@@ -593,9 +604,9 @@ nav {
 
 
 .upload-box.dragover {
-    border-color: #2563eb;
+    border-color: #0d4f59;
 
-    background: #eff6ff;
+    background: #e6f7f6;
 }
 
 
@@ -607,9 +618,9 @@ nav {
 
     border-radius: 50%;
 
-    background: #dbeafe;
+    background: #cdeee9;
 
-    color: #2563eb;
+    color: #0d4f59;
 
     display: flex;
 
@@ -638,15 +649,24 @@ nav {
 .upload-button {
     display: inline-block;
 
-    background: #2563eb;
+    background: #0d4f59;
 
     color: white;
 
-    padding: 12px 22px;
+    padding: 12px 24px;
 
-    border-radius: 10px;
+    border-radius: 9999px;
 
     cursor: pointer;
+
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.upload-button:hover {
+    background: #08383f;
+    transform: translateY(-1px);
+}
 
     font-weight: bold;
 }
@@ -706,17 +726,23 @@ nav {
 
 
 .search-bar button {
-    padding: 13px 22px;
+    padding: 13px 24px;
 
-    background: #2563eb;
+    background: #0d4f59;
 
     border: none;
 
-    border-radius: 10px;
+    border-radius: 9999px;
 
     color: white;
 
     cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.search-bar button:hover {
+    background: #08383f;
 }
 
 
@@ -775,22 +801,29 @@ td {
 
 
 .view-button {
-    background: #eff6ff;
+    background: #e6f7f6;
 
-    color: #2563eb;
+    color: #0d4f59;
 
-    border: none;
+    border: 1px solid rgba(13, 79, 89, 0.2);
 
-    padding: 7px 12px;
+    padding: 7px 14px;
 
-    border-radius: 7px;
+    border-radius: 9999px;
 
     cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.view-button:hover {
+    background: #0d4f59;
+    color: white;
 }
 
 
 .best-row {
-    background: #eff6ff;
+    background: #e6f7f6;
 }
 
 
@@ -799,7 +832,7 @@ td {
 ========================================================= */
 
 .model-selection {
-    background: #111827;
+    background: #092c33;
 
     color: white;
 
@@ -1223,12 +1256,12 @@ td {
 .offer-tag {
     display: inline-block;
     padding: 4px 10px;
-    border-radius: 6px;
+    border-radius: 9999px;
     font-size: 11.5px;
     font-weight: 600;
-    background: #eff6ff;
-    color: #1d4ed8;
-    border: 1px solid #bfdbfe;
+    background: #e6f7f6;
+    color: #0d4f59;
+    border: 1px solid rgba(13, 79, 89, 0.25);
     white-space: nowrap;
     text-align: center;
     cursor: default;
@@ -1236,23 +1269,24 @@ td {
 }
 
 .offer-tag:hover {
-    background: #dbeafe;
-    border-color: #93c5fd;
+    background: #cdeee9;
+    border-color: #0d4f59;
 }
 
 .offer-box-modal {
     background: #ffffff;
-    border: 1.5px solid #2563eb;
-    border-radius: 8px;
-    padding: 12px 14px;
+    border: 1.5px solid #0d4f59;
+    border-radius: 12px;
+    padding: 14px 16px;
     margin: 12px 0 14px 0;
+    box-shadow: 0 4px 12px rgba(13, 79, 89, 0.06);
 }
 
 .offer-box-modal .offer-label {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #2563eb;
+    color: #0d4f59;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
 }

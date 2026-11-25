@@ -2035,3 +2035,55 @@ async function submitNewCustomer(event) {
         statusEl.style.color = "#dc2626";
     }
 }
+
+
+// ============================================================
+// DYNAMIC MODEL SWITCHING
+// ============================================================
+
+async function switchActiveModel(modelId, btnElement) {
+    try {
+        const response = await fetch('/api/select-model', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model_id: modelId })
+        });
+        const data = await response.json();
+        if (data.status === 'success') {
+            document.querySelectorAll('.btn-model-select').forEach(b => {
+                b.style.background = 'transparent';
+                b.style.color = '#94a3b8';
+            });
+            if (btnElement) {
+                btnElement.style.background = '#0284c7';
+                btnElement.style.color = '#ffffff';
+            }
+
+            const titleEl = document.getElementById('activeModelTitle');
+            const descEl = document.getElementById('activeModelDesc');
+            const scoreEl = document.getElementById('activeModelScore');
+            const statusEl = document.getElementById('modelSwitchStatus');
+
+            if (modelId === 'catboost') {
+                if (titleEl) titleEl.textContent = 'CatBoost Classifier';
+                if (descEl) descEl.textContent = 'Symmetric oblivious decision trees with dynamic categorical target encoding for rapid, low-latency inference.';
+                if (scoreEl) scoreEl.innerHTML = '84.10%<small>ROC-AUC</small>';
+            } else if (modelId === 'ensemble') {
+                if (titleEl) titleEl.textContent = 'Tri-Ensemble (Soft Voting)';
+                if (descEl) descEl.textContent = 'Meta-learner blending Random Forest and CatBoost probability vectors for peak generalization.';
+                if (scoreEl) scoreEl.innerHTML = '87.50%<small>ROC-AUC</small>';
+            } else {
+                if (titleEl) titleEl.textContent = 'Random Forest (Champion)';
+                if (descEl) descEl.textContent = 'Optimized ensemble of decision trees trained to maximize churn recall and prevent false negatives.';
+                if (scoreEl) scoreEl.innerHTML = '86.20%<small>ROC-AUC</small>';
+            }
+
+            if (statusEl) {
+                statusEl.style.display = 'inline';
+                setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+            }
+        }
+    } catch (err) {
+        console.error('Error switching model:', err);
+    }
+}

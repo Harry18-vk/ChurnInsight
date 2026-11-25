@@ -1,0 +1,6 @@
+customerID,gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges
+SURVEY-001-Aman,Male,0,No,No,3,Yes,No,Fiber optic,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,799.0,2397.0
+SURVEY-002-Pooja,Female,0,Yes,Yes,48,Yes,Yes,DSL,Yes,Yes,Yes,Yes,No,No,Two year,No,Bank transfer (automatic),499.0,23952.0
+SURVEY-003-UncleGupta,Male,1,Yes,No,14,Yes,No,DSL,No,No,No,No,No,No,Month-to-month,No,Mailed check,299.0,4186.0
+SURVEY-004-RohanStudent,Male,0,No,No,2,Yes,No,Fiber optic,No,No,No,No,No,No,Month-to-month,Yes,Electronic check,699.0,1398.0
+SURVEY-005-SunitaSharma,Female,0,Yes,Yes,36,Yes,Yes,Fiber optic,Yes,Yes,Yes,Yes,Yes,Yes,One year,Yes,Credit card (automatic),999.0,35964.0
