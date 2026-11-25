@@ -2087,3 +2087,89 @@ async function switchActiveModel(modelId, btnElement) {
         console.error('Error switching model:', err);
     }
 }
+
+
+// ============================================================
+// ADMINISTRATIVE CONSOLE & POLICY SETTINGS
+// ============================================================
+
+async function loadAdminSettings() {
+    try {
+        const res = await fetch("/api/admin/settings");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.status === "success" && data.settings) {
+            const s = data.settings;
+            if (document.getElementById("adminHighRisk")) {
+                document.getElementById("adminHighRisk").value = s.high_risk_threshold || 70;
+                document.getElementById("highRiskDisplay").innerText = "≥ " + (s.high_risk_threshold || 70) + "%";
+            }
+            if (document.getElementById("adminMedRisk")) {
+                document.getElementById("adminMedRisk").value = s.medium_risk_threshold || 40;
+                document.getElementById("medRiskDisplay").innerText = "≥ " + (s.medium_risk_threshold || 40) + "%";
+            }
+            if (document.getElementById("adminMaxConcession")) {
+                document.getElementById("adminMaxConcession").value = s.max_concession_inr || 1500;
+            }
+            if (document.getElementById("adminRetentionPolicy")) {
+                document.getElementById("adminRetentionPolicy").value = s.retention_policy || "balanced";
+            }
+            if (document.getElementById("adminActiveModel")) {
+                document.getElementById("adminActiveModel").value = s.active_model || "random_forest";
+            }
+        }
+    } catch (e) {
+        console.error("Failed to load admin settings:", e);
+    }
+}
+
+async function saveAdminSettings() {
+    const highEl = document.getElementById("adminHighRisk");
+    const medEl = document.getElementById("adminMedRisk");
+    const maxEl = document.getElementById("adminMaxConcession");
+    const polEl = document.getElementById("adminRetentionPolicy");
+    const modEl = document.getElementById("adminActiveModel");
+
+    const highTh = highEl ? parseInt(highEl.value) : 70;
+    const medTh = medEl ? parseInt(medEl.value) : 40;
+    const maxConc = maxEl ? parseInt(maxEl.value) : 1500;
+    const policy = polEl ? polEl.value : "balanced";
+    const model = modEl ? modEl.value : "random_forest";
+
+    try {
+        const res = await fetch("/api/admin/settings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                high_risk_threshold: highTh,
+                medium_risk_threshold: medTh,
+                max_concession_inr: maxConc,
+                retention_policy: policy,
+                active_model: model
+            })
+        });
+        const data = await res.json();
+        if (data.status === "success") {
+            const notice = document.getElementById("adminSaveNotice");
+            if (notice) {
+                notice.style.display = "inline";
+                setTimeout(() => { notice.style.display = "none"; }, 4000);
+            }
+            // Sync active model switch if switcher exists
+            if (typeof selectPredictionModel === "function") {
+                selectPredictionModel(model);
+            }
+        } else {
+            alert("Error saving admin settings: " + (data.message || "Unknown error"));
+        }
+    } catch (e) {
+        alert("Failed to save admin settings: " + e);
+    }
+}
+
+// Automatically load admin settings on startup
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadAdminSettings);
+} else {
+    loadAdminSettings();
+}

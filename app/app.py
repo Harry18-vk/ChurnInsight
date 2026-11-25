@@ -28,5 +28,5 @@ if __name__ == "__main__":
     print("===================================")
     print("Server running on: http://127.0.0.1:5000")
     print("Admin Portal:      http://127.0.0.1:5000/login")
-    print("Default Login:     admin / admin123\n")
+    print("Admin Login:       divyansh / divyansh 123 (or admin / admin123)\n")
     app.run(host="0.0.0.0", port=5000, debug=True)

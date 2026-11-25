@@ -104,6 +104,17 @@ except Exception as e_cb:
 
 ACTIVE_MODEL = "random_forest"
 
+ADMIN_SETTINGS = {
+    "high_risk_threshold": 70,
+    "medium_risk_threshold": 40,
+    "max_concession_inr": 1500,
+    "retention_policy": "balanced",
+    "active_model": "random_forest",
+    "admin_name": "Divyansh Yadav",
+    "admin_email": "divyansh@churninsight.internal",
+    "admin_role": "Super Administrator"
+}
+
 def compute_churn_probabilities(X):
     global ACTIVE_MODEL, model, model_catboost
     import numpy as np
@@ -294,17 +305,13 @@ def preprocess_data(data):
 # ============================================================
 
 def get_risk_level(probability):
-
-    if probability >= 70:
-
+    high_th = ADMIN_SETTINGS.get("high_risk_threshold", 70)
+    med_th = ADMIN_SETTINGS.get("medium_risk_threshold", 40)
+    if probability >= high_th:
         return "High"
-
-    elif probability >= 40:
-
+    elif probability >= med_th:
         return "Medium"
-
     else:
-
         return "Low"
 
 
@@ -313,28 +320,30 @@ def get_risk_level(probability):
 # ============================================================
 
 def get_recommendation(risk, customer_data=None):
+    max_disc = ADMIN_SETTINGS.get("max_concession_inr", 1500)
+    policy = ADMIN_SETTINGS.get("retention_policy", "balanced").capitalize()
+
     if customer_data is not None and generate_smart_retention:
         try:
             strategy = generate_smart_retention(customer_data, risk_level=risk)
-            return strategy["specific_offer"]
+            offer = strategy.get("specific_offer", "")
+            return f"[{policy} Policy] {offer} (Authorized concession cap: ₹{max_disc})"
         except Exception:
             pass
 
     if risk == "High":
         return (
-            "Immediate retention action recommended. "
-            "Contact the customer and provide a personalized "
-            "retention offer or service improvement."
+            f"[{policy} Policy] Immediate retention action recommended. Deploy up to ₹{max_disc} personalized "
+            "concession, dedicated account support, or bandwidth upgrade."
         )
     elif risk == "Medium":
         return (
-            "Monitor customer engagement and consider "
-            "a targeted promotional or service offer."
+            f"[{policy} Policy] Monitor customer engagement. Offer targeted promotional concession up to "
+            f"₹{int(max_disc * 0.5)} or multi-service contract upgrade."
         )
     else:
         return (
-            "Maintain regular engagement and continue "
-            "monitoring customer satisfaction."
+            "Maintain standard lifecycle engagement, loyalty milestone rewards, and satisfaction tracking."
         )
 
 
@@ -356,17 +365,70 @@ def login():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
-        if username.lower() == "admin" and password == "admin123":
-            session["user"] = username
+
+        # Allow divyansh with "divyansh 123" or "divyansh123", or admin with "admin123"
+        valid_divyansh = (username.lower() == "divyansh" and password in ["divyansh 123", "divyansh123"])
+        valid_admin = (username.lower() == "admin" and password == "admin123")
+
+        if valid_divyansh or valid_admin:
+            session["user"] = "divyansh" if valid_divyansh else username
             return redirect(url_for("dashboard"))
-        return render_template("login.html", error="Invalid admin credentials. Please use admin / admin123")
+        return render_template("login.html", error="Invalid credentials. Please enter authorized credentials.")
     return render_template("login.html")
+
+
+@app.route("/sso-auth", methods=["POST"])
+def sso_auth():
+    provider = request.form.get("provider", "Enterprise SSO").capitalize()
+    session["user"] = "divyansh"
+    session["sso_provider"] = provider
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/logout")
 def logout():
     session.pop("user", None)
+    session.pop("sso_provider", None)
     return redirect(url_for("login"))
+
+
+@app.route("/api/admin/settings", methods=["GET", "POST"])
+@login_required
+def admin_settings_api():
+    global ADMIN_SETTINGS, ACTIVE_MODEL
+    if request.method == "POST":
+        data = request.get_json() or {}
+        if "high_risk_threshold" in data:
+            try:
+                ADMIN_SETTINGS["high_risk_threshold"] = int(data["high_risk_threshold"])
+            except (ValueError, TypeError):
+                pass
+        if "medium_risk_threshold" in data:
+            try:
+                ADMIN_SETTINGS["medium_risk_threshold"] = int(data["medium_risk_threshold"])
+            except (ValueError, TypeError):
+                pass
+        if "max_concession_inr" in data:
+            try:
+                ADMIN_SETTINGS["max_concession_inr"] = int(data["max_concession_inr"])
+            except (ValueError, TypeError):
+                pass
+        if "retention_policy" in data:
+            ADMIN_SETTINGS["retention_policy"] = str(data["retention_policy"])
+        if "active_model" in data:
+            m = str(data["active_model"]).lower()
+            if m in ["random_forest", "catboost", "ensemble"]:
+                ADMIN_SETTINGS["active_model"] = m
+                ACTIVE_MODEL = m
+        return jsonify({
+            "status": "success",
+            "message": "Administrative parameters updated successfully.",
+            "settings": ADMIN_SETTINGS
+        })
+    return jsonify({
+        "status": "success",
+        "settings": ADMIN_SETTINGS
+    })
 
 
 # ============================================================
