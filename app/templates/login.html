@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChurnInsight - Administrative Sign In</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='churninsight-icon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ci-logo-circle.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -444,14 +444,7 @@
         <!-- Top Navigation -->
         <header class="top-nav">
             <a href="/" class="brand-logo-wrap">
-                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="46" fill="#0d4f59"/>
-                    <rect x="35" y="48" width="8" height="20" rx="2" fill="#ffffff"/>
-                    <rect x="46" y="55" width="8" height="13" rx="2" fill="#ffffff"/>
-                    <rect x="57" y="38" width="8" height="30" rx="2" fill="#ffffff"/>
-                    <path d="M 30 62 L 40 50 L 52 58 L 68 33" stroke="#2dd4bf" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M 60 33 L 68 33 L 68 41" stroke="#2dd4bf" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <img src="{{ url_for('static', filename='ci-logo-circle.png') }}" alt="ChurnInsight" width="42" height="42" style="border-radius: 50%; box-shadow: 0 4px 12px rgba(5, 10, 48, 0.25);">
                 <span class="brand-title">ChurnInsight</span>
             </a>
 
@@ -581,19 +574,7 @@
             <!-- Right Side: Hero Banner with Mint Gradient & CI Logo -->
             <div class="banner-column">
                 <div class="banner-content">
-                    <svg class="large-ci-logo-svg" viewBox="0 0 340 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 170 30 C 95 30 40 85 40 150 C 40 215 95 270 170 270 C 205 270 235 255 252 238 L 222 205 C 210 215 192 226 170 226 C 122 226 84 192 84 150 C 84 108 122 74 170 74 C 192 74 210 85 222 95 L 252 62 C 235 45 205 30 170 30 Z" fill="#0d4f59"/>
-                        <path d="M 280 40 L 335 40 L 335 62 L 318 62 L 318 238 L 335 238 L 335 260 L 280 260 L 280 238 L 297 238 L 297 62 L 280 62 Z" fill="#0d4f59"/>
-                        <rect x="115" y="140" width="16" height="42" rx="3" fill="#0d4f59"/>
-                        <rect x="142" y="158" width="16" height="24" rx="3" fill="#0d4f59"/>
-                        <rect x="169" y="115" width="16" height="67" rx="3" fill="#0d4f59"/>
-                        <path d="M 105 174 L 132 146 L 155 168 L 210 110" stroke="#0a192f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M 194 110 L 210 110 L 210 126" stroke="#0a192f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-
-                    <div style="font-size: 15px; font-weight: 800; color: #0d4f59; letter-spacing: 3px; margin-bottom: 24px; text-transform: uppercase;">
-                        PREDICT <span style="font-weight: 900; color: #06282e;">UNDERSTAND</span> RETAIN
-                    </div>
+                    <img src="{{ url_for('static', filename='ci-logo-cropped.png') }}" alt="ChurnInsight - Predict Understand Retain" style="width: 250px; height: auto; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 16px 36px rgba(5, 10, 48, 0.28);">
 
                     <h2 class="banner-headline">Turn Data into Deep Insights</h2>
                     <p class="banner-tagline">Predict. Understand. Retain.</p>

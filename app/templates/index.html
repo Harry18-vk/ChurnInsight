@@ -12,9 +12,10 @@
 
     <title>ChurnInsight - Customer Churn Intelligence</title>
 
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='ci-logo-circle.png') }}">
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
+        href="{{ url_for('static', filename='style.css') }}?v=20261125"
     >
 
 </head>
@@ -31,14 +32,7 @@
 
     <div class="brand">
         <div class="brand-icon" style="background: transparent; display: flex; align-items: center; justify-content: center;">
-            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="46" fill="#14b8a6"/>
-                <rect x="35" y="48" width="8" height="20" rx="2" fill="#ffffff"/>
-                <rect x="46" y="55" width="8" height="13" rx="2" fill="#ffffff"/>
-                <rect x="57" y="38" width="8" height="30" rx="2" fill="#ffffff"/>
-                <path d="M 30 62 L 40 50 L 52 58 L 68 33" stroke="#092c33" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 60 33 L 68 33 L 68 41" stroke="#092c33" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <img src="{{ url_for('static', filename='ci-logo-circle.png') }}" alt="ChurnInsight" width="42" height="42" style="border-radius: 50%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);">
         </div>
         <div>
             <h2>ChurnInsight</h2>
